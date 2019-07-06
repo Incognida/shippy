@@ -1,4 +1,4 @@
-module github.com/Incognida13/shippy
+module github.com/Incognida/shippy
 
 go 1.12
 

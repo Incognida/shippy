@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	pb "github.com/Incognida13/shippy/vessel-service/proto/vessel"
+	pb "github.com/Incognida/shippy/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 )
 

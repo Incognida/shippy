@@ -13,7 +13,7 @@ WORKDIR /app/shippy-service-consignment
 # Copy the current code into our workdir
 COPY . .
 
-RUN go mod init github.com/Incognida13/shippy/consignment-service
+RUN go mod init github.com/Incognida/shippy/consignment-service
 RUN go mod download
 
 # Build the binary, with a few flags which will allow

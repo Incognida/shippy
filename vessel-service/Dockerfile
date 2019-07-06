@@ -7,7 +7,7 @@ WORKDIR /app/shippy-service-vessel
 
 COPY . .
 
-RUN go mod init github.com/Incognida13/shippy/vessel-service
+RUN go mod init github.com/Incognida/shippy/vessel-service
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o shippy-service-vessel
 

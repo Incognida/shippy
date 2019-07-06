@@ -6,8 +6,8 @@ import (
 	"log"
 	"sync"
 
-	pb "github.com/Incognida13/shippy/consignment-service/proto/consignment"
-	vesselProto "github.com/Incognida13/shippy/vessel-service/proto/vessel"
+	pb "github.com/Incognida/shippy/consignment-service/proto/consignment"
+	vesselProto "github.com/Incognida/shippy/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 )
 
@@ -42,7 +42,7 @@ func (repo *Repository) GetAll() []*pb.Consignment {
 // in the generated code itself for the exact method signatures etc
 // to give you a better idea.
 type service struct {
-	repo repository
+	repo         repository
 	vesselClient vesselProto.VesselService
 }
 
@@ -55,7 +55,7 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	// and the amount of containers as the capacity value
 	vesselResponse, err := s.vesselClient.FindAvailable(context.Background(), &vesselProto.Specification{
 		MaxWeight: req.Weight,
-		Capacity: int32(len(req.Containers)),
+		Capacity:  int32(len(req.Containers)),
 	})
 	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
 	if err != nil {
@@ -65,7 +65,6 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	// We set the VesselId as the vessel we got back from our
 	// vessel service
 	req.VesselId = vesselResponse.Vessel.Id
-
 
 	// Save our consignment
 	consignment, err := s.repo.Create(req)
