@@ -6,4 +6,4 @@ build:
 	docker build -t shippy-service-vessel .
 
 run:
-	docker run -p 50052:50051 -e MICRO_SERVER_ADDRESS=:50051 shippy-service-vessel
+	docker run -p 50052:50051 -e MICRO_SERVER_ADDRESS=:50051 -e MICRO_REGISTRY=mdns shippy-service-vessel

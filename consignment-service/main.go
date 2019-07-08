@@ -6,9 +6,10 @@ import (
 	"log"
 	"sync"
 
-	pb "github.com/Incognida/shippy/consignment-service/proto/consignment"
-	vesselProto "github.com/Incognida/shippy/vessel-service/proto/vessel"
+	pb "github.com/Incognida/shippy_protos/consignment"
+	vesselProto "github.com/Incognida/shippy_protos/vessel"
 	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/service/grpc"
 )
 
 type repository interface {
@@ -95,9 +96,10 @@ func main() {
 
 	srv.Init()
 
-	vesselService := micro.NewService(micro.Name("vessel"))
-	vesselService.Init()
-	vesselClient := vesselProto.NewVesselService("vessel", vesselService.Client())
+	vs := grpc.NewService()
+	vs.Init()
+
+	vesselClient := vesselProto.NewVesselService("vessel", vs.Client())
 
 	// Register handlers
 	pb.RegisterShippingServiceHandler(srv.Server(), &service{repo, vesselClient})

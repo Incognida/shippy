@@ -9,7 +9,7 @@ import (
 
 	"context"
 
-	pb "github.com/Incognida/shippy/consignment-service/proto/consignment"
+	pb "github.com/Incognida/shippy_protos/consignment"
 )
 
 const (

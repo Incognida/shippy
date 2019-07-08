@@ -10,11 +10,12 @@ RUN apk --no-cache add git
 # Set our workdir to our current service in the gopath
 WORKDIR /app/shippy-service-consignment
 
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
 # Copy the current code into our workdir
 COPY . .
-
-RUN go mod init github.com/Incognida/shippy/consignment-service
-RUN go mod download
 
 # Build the binary, with a few flags which will allow
 # us to run this binary in Alpine.
