@@ -4,6 +4,11 @@ services:
 
   consignment-cli:
     build: ./consignment-cli
+    environment:
+      MICRO_REGISTRY: "mdns"
+    depends_on:
+      - consignment-service
+      - vessel-service
 
   consignment-service:
     build: ./consignment-service
@@ -12,7 +17,7 @@ services:
     environment:
       MICRO_ADDRESS: ":50051"
       MICRO_REGISTRY: "mdns"
-      DB_HOST: "mongodb://datastore:2017/"
+      DB_HOST: "mongodb://datastore:27017/"
 
   vessel-service:
     build: ./vessel-service
@@ -21,7 +26,7 @@ services:
     environment:
       MICRO_ADDRESS: ":50051"
       MICRO_REGISTRY: "mdns"
-      DB_HOST: "mongodb://datastore:2017/"
+      DB_HOST: "mongodb://datastore:27017/"
 
   datastore:
     image: mongo

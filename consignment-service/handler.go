@@ -20,18 +20,18 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
-	vesselResponse, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
+	v, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
 	})
-	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
 	if err != nil {
 		return err
 	}
 
-	// We set the VesselId as the vessel we got back from our
-	// vessel service
-	req.VesselId = vesselResponse.Vessel.Id
+	if v.Vessel != nil {
+		log.Printf("Found vessel: %v \n", v)
+		req.VesselId = v.Vessel.Id
+	}
 
 	// Save our consignment
 	if err = s.repository.Create(req); err != nil {

@@ -33,6 +33,17 @@ func main() {
 	collection := client.Database("shippy").Collection("vessels")
 
 	r := &MongoRepository{collection: collection}
+	err = r.Create(&pb.Vessel{
+		Capacity:  69,
+		MaxWeight: 69000,
+		Name:      "Chaika",
+		Available: true,
+		OwnerId:   "Pistoletov",
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	pb.RegisterVesselServiceHandler(srv.Server(), &handler{r})
 

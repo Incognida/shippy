@@ -1,4 +1,6 @@
-FROM golang:1.9.0 as builder
+FROM golang:alpine as builder
+
+RUN apk --no-cache add git
 
 WORKDIR /app/consignment-cli
 

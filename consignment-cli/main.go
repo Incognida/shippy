@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/service/grpc"
 	"io/ioutil"
 	"log"
 	"os"
@@ -27,8 +27,9 @@ func parseFile(file string) (*pb.Consignment, error) {
 }
 
 func main() {
-	service := micro.NewService(micro.Name("consignment"))
+	service := grpc.NewService()
 	service.Init()
+
 	client := pb.NewShippingService("consignment", service.Client())
 
 	// Contact the server and print out its response.
